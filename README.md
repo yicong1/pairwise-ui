@@ -79,7 +79,7 @@ These battles showcase some of the world’s top dancers and serve as calibratio
 - Transitions feel natural, not abrupt
 - The dancer maintains energy and engagement throughout
 
-4. Overall Impact（整体表现力）
+4. Overall Impact
 
 - Confidence, presence, and character
 - The dancer commands the stage and engages the audience
