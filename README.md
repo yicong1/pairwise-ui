@@ -1,5 +1,12 @@
 # Who Dance Better · Pairwise Labeling 
 
+![img](./img/Screenshot%20From%202025-11-18%2001-48-39.png)
+
+
+In this group assignment, you will experience how human intuition and careful data labeling power the next generation of fair and explainable AI systems.
+
+Your team will use a web-based platform to watch pairs of short dance videos and decide, based on clear criteria, which performance is better. Some pairs have a known “correct answer” for quality control, while others help build up a global ranking from many local decisions. By practicing objective judging and learning how your votes contribute to AI model training, you’ll see firsthand how data annotation, gold standards, and simple fairness checks shape trustworthy machine learning.
+
 ## Requirements
 
 - **Node.js** ≥ 18 (20 LTS recommended)
@@ -17,7 +24,7 @@ npm install
 # 2) Run the dev server (default http://localhost:5173)
 npm run dev
 
-# 3) Build for production and preview locally (optional)
+# (optional) Build for production and preview locally 
 npm run build
 npm run preview
 ```
@@ -45,7 +52,7 @@ npm run preview
 
 For shared calibration on what “better” means, annotators are encouraged to watch the **official competition playlist**:
 
-- YouTube (full competition):  
+- YouTube (Red Bull BC One World Final 2024):  
   https://www.youtube.com/playlist?list=PLFESWvkiXqSXn5A9PkHyJfywgx5-QewUf
 
 
