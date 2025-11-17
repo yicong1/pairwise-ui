@@ -1,4 +1,4 @@
-# Who Dance Better · Pairwise Labeling UI
+# Who Dance Better · Pairwise Labeling 
 *4 annotators · file‑based progress · five‑level preference*
 
 A lightweight web app for **pairwise dance quality judgments**. It supports:
