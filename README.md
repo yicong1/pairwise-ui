@@ -17,6 +17,11 @@ Your team will use a web-based platform to watch pairs of short dance videos and
 
 ## Quick Start
 
+
+Download from the shared folder and put the files under `public/units/`
+- Google Drive (shared folder):  
+  https://drive.google.com/drive/folders/1dMYDJDsMgiVKmLmN5i46hdDGXdc_47f4?usp=sharing
+
 ```bash
 # 1) Install dependencies
 npm install
@@ -37,8 +42,7 @@ npm run preview
 
 1. Open the app and **Sign in** as one of: Annotator **A / B / C / D**.
 2. Enter your passcode (set in code; see [Security](#security--passcodes)).
-3. You will only be served **pairs assigned to you** (see [Task Split](#4-annotator-task-split)).
-
+3. You will only be served **pairs assigned to you** .
 
 
 ### Import/Export progress (JSON)
@@ -54,46 +58,6 @@ For shared calibration on what “better” means, annotators are encouraged to 
 
 - YouTube (Red Bull BC One World Final 2024):  
   https://www.youtube.com/playlist?list=PLFESWvkiXqSXn5A9PkHyJfywgx5-QewUf
-
-
----
-
-## Progress File Format (JSON)
-
-Example produced by **Export progress**:
-
-```json
-{
-  "format": "pairwise-progress-v1",
-  "dataset": "/data/dancer_units.csv",
-  "user": { "id": "A", "name": "Annotator A", "index": 0 },
-  "salt": "/data/dancer_units.csv",
-  "idx": 12,
-  "history": [
-    {
-      "A": "u001",
-      "B": "u007",
-      "submission": {
-        "preference": "A_better",
-        "score": 2,
-        "timestamp": 1730000000000,
-        "watched": { "A": 0.95, "B": 0.90 }
-      }
-    },
-    { "A": "u003", "B": "u010" }
-  ],
-  "createdAt": 1730000000000,
-  "updatedAt": 1730000000000
-}
-```
-
----
-
-
-Download from the shared folder and put the files under `public/units/`
-- Google Drive (shared folder):  
-  https://drive.google.com/drive/folders/1dMYDJDsMgiVKmLmN5i46hdDGXdc_47f4?usp=sharing
-
 
 ---
 
@@ -120,7 +84,7 @@ const USERS = [
 │  ├─ data/
 │  │  └─ dancer_units.csv
 │  └─ units/
-│     ├─ u001.mp4
+│     ├─ 0_Kq3IQQMNA_16.mp4
 │     └─ ...
 ├─ src/
 │  ├─ CSVPairwiseDemo.tsx        # Labeling UI
