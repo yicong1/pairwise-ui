@@ -54,10 +54,36 @@ npm run preview
 
 ### “Before you label”: watch official scoring (recommended)
 
-For shared calibration on what “better” means, annotators are encouraged to watch the **official competition playlist**:
+To build a shared understanding of what “better performance” means in dance, all annotators are encouraged to first watch several rounds from official competitions. These provide gold-standard references for execution quality, musicality, and overall performance impact.
 
-- YouTube (Red Bull BC One World Final 2024):  
-  https://www.youtube.com/playlist?list=PLFESWvkiXqSXn5A9PkHyJfywgx5-QewUf
+We recommend starting with the Red Bull BC One World Final (2024):
+https://www.youtube.com/playlist?list=PLFESWvkiXqSXn5A9PkHyJfywgx5-QewUf
+
+These battles showcase some of the world’s top dancers and serve as calibration material for your intuition of quality.
+
+1. Execution & Control
+
+- Movements are clean, controlled, and intentional
+- Balance is steady; transitions are smooth rather than shaky
+- Power moves land cleanly without “heavy recovery” or visible instability
+- No unnecessary pauses, hesitations, or loss of rhythm
+
+2. Musicality
+
+- Movements accent the beat, lyrics, or rhythm changes
+- Good dancers “ride the music” instead of just doing moves
+- Timing is precise—no drifting or performing off-beat
+
+3. Flow & Structure
+- The performance has a beginning, development, and finish—not random moves
+- Transitions feel natural, not abrupt
+- The dancer maintains energy and engagement throughout
+
+4. Overall Impact（整体表现力）
+
+- Confidence, presence, and character
+- The dancer commands the stage and engages the audience
+- Energy matches the music and moment
 
 ---
 
