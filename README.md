@@ -1,102 +1,180 @@
-# Who Dance Better · Pairwise Labeling 
+# Who Dance Better · Pairwise Labeling
 
 ![img](./img/Screenshot%20From%202025-11-18%2001-48-39.png)
 
 
-Your team will use a web-based platform to watch pairs of short dance videos and decide, based on clear criteria, which performance is better. Some pairs have a known “correct answer” for quality control, while others help build up a global ranking from many local decisions. By practicing objective judging and learning how your votes contribute to AI model training, you’ll see firsthand how data annotation, gold standards, and simple fairness checks shape trustworthy machine learning.
+- A dedicated **Ground Truth (GT)** account that labels the official winner for each battle
+- Four **QC annotators** (A/B/C/D) with intentional task overlap to measure agreement and detect inconsistent labeling
+
+This project uses file-based progress (JSON import/export) so each participant can save and resume work without a backend server.
+
+---
 
 ## Requirements
 
-- **Node.js** ≥ 18 (20 LTS recommended)
-- **npm** (or pnpm/yarn)
+- Node.js 18 or newer (20 LTS recommended)
+- npm (or pnpm/yarn)
 - Modern browser (Chrome/Edge/Firefox)
 
 ---
 
 ## Quick Start
 
+### 1) Download videos
 
-Download from the shared folder and put the files under `public/units/`
+Download the clips from the shared folder and place them under `public/units/`:
+
 - Google Drive (shared folder):  
   https://drive.google.com/drive/folders/1dMYDJDsMgiVKmLmN5i46hdDGXdc_47f4?usp=sharing
 
+Your repository already includes the CSV manifest at:
+
+- `public/data/dancer_units.csv`
+
+### 2) Install and run
+
 ```bash
-# 1) Install dependencies
+# Install dependencies
 npm install
 
-# 2) Run the dev server (default http://localhost:5173)
+# Run the dev server (default http://localhost:5173)
 npm run dev
 
-# (optional) Build for production and preview locally 
+# Optional: build for production and preview locally
 npm run build
 npm run preview
 ```
 
 ---
 
+## Accounts and Roles
+
+### GT account (official ground truth)
+- Account ID: `GT`
+- Labels the winner for every battle (each `videoId` with exactly two dancers)
+- Can export:
+  - GT progress file (backup / resume)
+  - Full unit-level pairwise labels derived from GT
+
+### QC annotators (cross-check labeling)
+- Account IDs: `A`, `B`, `C`, `D`
+- Each annotator labels a subset of battles for quality control
+- Some battles are intentionally assigned to two annotators so we can measure agreement
+- Each annotator exports their own QC progress file
+
+---
+
 ## Labeling Workflow
 
-### Sign‑in & passcodes
+### Sign in
+1. Start the app in your browser.
+2. Select your account (`GT` or `A/B/C/D`).
+3. Enter your passcode (see Security section).
 
-1. Open the app and **Sign in** as one of: Annotator **A / B / C / D**.
-2. Enter your passcode (set in code; see [Security](#security--passcodes)).
-3. You will only be served **pairs assigned to you** .
+### What you label (battle definition)
+A **battle** is identified by `videoId` and must contain exactly **two dancers**. The app groups clips by:
 
+- `videoId`
+- then `dancer_id` (or fallback keys if missing)
 
-### Import/Export progress (JSON)
+Battles with missing `videoId` or not exactly two dancers are ignored.
 
-- **Export progress** — downloads a `.json` file with your current history and pointer.
-- **Import progress** — load a previous file to **resume** exactly where you left off.
-- Each annotator keeps their **own file**. You can merge results offline for training.
-- The UI warns on page close if there are unsaved changes.
+### How to label a battle
+You will see two sides (A and B). Each side belongs to one dancer in this battle. You can switch which clip to view for each dancer using the clip dropdown on each side.
 
-### “Before you label”: watch official scoring (recommended)
+Set the winner using:
+- Buttons in the fixed bottom bar, or
+- Hotkeys:
+  - `1` = A wins
+  - `2` = B wins
+  - `0` = Clear label
+  - `U` = Next unlabeled
+  - `P` = Previous
+  - `N` = Next
 
-To build a shared understanding of what “better performance” means in dance, all annotators are encouraged to first watch several rounds from official competitions. These provide gold-standard references for execution quality, musicality, and overall performance impact.
+Playback helpers:
+- Play both
+- Pause
+- Restart
 
-We recommend starting with the Red Bull BC One World Final (2024):
+### Save and resume (Import/Export progress)
+- Export downloads a `.json` file with your current progress.
+- Import loads a previous file and resumes where you left off.
+- Each account keeps its own file. Do not mix progress files across accounts.
+
+Recommended practice:
+- Export frequently (for example every 10–20 battles or at the end of a session).
+- Keep backups (cloud drive or shared team folder).
+
+---
+
+## Quality Control (QC overlap)
+
+The QC workflow uses overlap so you can detect inconsistent annotation behavior.
+
+- Each battle is assigned to at least one QC annotator.
+- A configurable fraction of battles is assigned to a second annotator for cross-checking.
+- The overlap rate is controlled in code (search for `QC_OVERLAP_RATE`).
+
+In the GT account’s “Finalize & Export” tab, you can import QC files and view:
+- Accuracy vs GT (on battles where GT exists)
+- Pairwise agreement between QC annotators on shared battles
+
+---
+
+## Before You Label: Watch Official Scoring (Recommended)
+
+To build a shared understanding of what “better performance” means in dance, annotators should watch several rounds from official competitions first.
+
+We recommend starting with the Red Bull BC One World Final playlist:
 https://www.youtube.com/playlist?list=PLFESWvkiXqSXn5A9PkHyJfywgx5-QewUf
 
-These battles showcase some of the world’s top dancers and serve as calibration material for your intuition of quality.
+Use these battles as calibration material for judging consistency.
 
-1. Execution & Control
+### Suggested judging criteria
 
+1) Execution & Control
 - Movements are clean, controlled, and intentional
-- Balance is steady; transitions are smooth rather than shaky
-- Power moves land cleanly without “heavy recovery” or visible instability
-- No unnecessary pauses, hesitations, or loss of rhythm
+- Balance is steady; transitions are smooth
+- Power moves land cleanly without visible instability
+- No unnecessary pauses or loss of rhythm
 
-2. Musicality
-
+2) Musicality
 - Movements accent the beat, lyrics, or rhythm changes
-- Good dancers “ride the music” instead of just doing moves
-- Timing is precise—no drifting or performing off-beat
+- Timing is precise (no drifting off-beat)
+- The dancer “rides the music” instead of only doing moves
 
-3. Flow & Structure
-- The performance has a beginning, development, and finish—not random moves
-- Transitions feel natural, not abrupt
-- The dancer maintains energy and engagement throughout
+3) Flow & Structure
+- Clear structure (opening, development, finish)
+- Natural transitions rather than abrupt resets
+- Energy and engagement are maintained
 
-4. Overall Impact
-
+4) Overall Impact
 - Confidence, presence, and character
-- The dancer commands the stage and engages the audience
+- Stage control and audience engagement
 - Energy matches the music and moment
 
 ---
 
 ## Security & Passcodes
 
-Passcodes are defined in code for internal use. Update the `USERS` constant (IDs, names, passcodes) in the labeling component:
+Passcodes are defined in code for internal use. Update the `USERS` constant (IDs, names, passcodes) in the labeling component.
+
+Example:
 
 ```ts
 const USERS = [
-  { id: "A", name: "Annotator A", index: 0, passcode: "aaa" },
-  { id: "B", name: "Annotator B", index: 1, passcode: "bbb" },
-  { id: "C", name: "Annotator C", index: 2, passcode: "ccc" },
-  { id: "D", name: "Annotator D", index: 3, passcode: "ddd" }
+  { id: "GT", name: "GT Account", role: "gt", index: -1, passcode: "0000" },
+  { id: "A",  name: "Annotator A", role: "annotator", index: 0, passcode: "1111" },
+  { id: "B",  name: "Annotator B", role: "annotator", index: 1, passcode: "2222" },
+  { id: "C",  name: "Annotator C", role: "annotator", index: 2, passcode: "3333" },
+  { id: "D",  name: "Annotator D", role: "annotator", index: 3, passcode: "4444" }
 ] as const;
 ```
+
+Notes:
+- The GT passcode should be shared only with the GT owner.
+- If you need stronger security, add backend authentication instead of client-side passcodes.
 
 ---
 
@@ -111,7 +189,7 @@ const USERS = [
 │     ├─ 0_Kq3IQQMNA_16.mp4
 │     └─ ...
 ├─ src/
-│  ├─ CSVPairwiseDemo.tsx        # Labeling UI
+│  ├─ CSVPairwiseDemo.tsx        # Labeling UI (GT account + QC overlap + finalize/export)
 │  ├─ App.tsx             # Renders the Pairwise component
 │  ├─ config.ts           # DATA_CSV_URL / VIDEO_PREFIX_URL / FORCE_MP4
 │  ├─ index.css           # Tailwind entry
